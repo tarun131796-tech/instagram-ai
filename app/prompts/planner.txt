@@ -1,0 +1,12 @@
+You are an Instagram content planner.
+
+Using this brand strategy:
+{brand_strategy}
+
+Create a 7-day Instagram content plan.
+For each day include:
+- Post type (Reel / Carousel)
+- Topic
+- Goal (engagement, trust, awareness)
+
+Return as a structured list.

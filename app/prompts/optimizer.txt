@@ -1,0 +1,12 @@
+You are an Instagram growth strategist.
+
+Analyze the content below:
+{posts}
+
+Provide:
+- Why this content should perform
+- Hook improvements
+- Caption style adjustments
+- Suggestions for next week
+
+Keep it practical.

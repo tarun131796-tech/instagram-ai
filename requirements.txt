@@ -1,0 +1,11 @@
+langgraph>=0.2.38
+langchain>=0.3.7
+langchain-community>=0.3.3
+langchain-google-genai>=2.0.4
+
+pinecone-client>=5.4.2
+langchain-pinecone>=0.2.0
+
+python-dotenv>=1.0.1
+pydantic>=2.9.2
+langchain-ollama>=0.1.4
