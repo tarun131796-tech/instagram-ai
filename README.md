@@ -14,72 +14,94 @@ An autonomous AI agent designed to plan and generate Instagram content (Reels, C
     *   Runs with a **Mock LLM** if no API keys are provided.
     *   Runs with **NoOp Memory** if Pinecone is not configured.
 
-## 🛠️ Prerequisites
+---
 
-*   Python 3.10+
-*   [Ollama](https://ollama.com/) (Optional, for local embeddings if using Pinecone)
-    *   Model: `nomic-embed-text` (`ollama pull nomic-embed-text`)
+## 📝 Step-by-Step Guide
 
-## 📦 Installation
+Follow these steps to set up the agent and generate your first Instagram content.
 
-1.  Clone the repository:
+### Step 1: Install Dependencies
+
+First, get the code and install the required Python packages.
+
+1.  **Clone the repository**:
     ```bash
     git clone https://github.com/yourusername/instagram-ai.git
     cd instagram-ai
     ```
 
-2.  Install dependencies:
+2.  **Install Python requirements**:
+    Make sure you have Python 3.10+ installed.
     ```bash
     pip install -r requirements.txt
     ```
 
-## ⚙️ Configuration
+3.  **(Optional) Install Ollama**:
+    If you plan to use Pinecone for memory, you need Ollama for local embeddings.
+    *   Download from [ollama.com](https://ollama.com/).
+    *   Pull the embedding model:
+        ```bash
+        ollama pull nomic-embed-text
+        ```
 
-Create a `.env` file in the root directory. You can copy the variables below.
+### Step 2: Configure Environment
 
-**Note**: The application works out-of-the-box without keys in a "Mock Mode". To enable real AI capabilities, set the following:
+You need to set up your API keys. If you skip this, the app will run in "Mock Mode" (generating fake text without calling real APIs).
 
-```env
-# LLM Provider (Google Gemini)
-GOOGLE_API_KEY=your_google_api_key_here
-# OR
-GEMINI_API_KEY=your_gemini_api_key_here
+1.  **Create a `.env` file** in the root directory:
+    ```bash
+    touch .env
+    ```
 
-# Long-term Memory (Pinecone) - Optional
-PINECONE_API_KEY=your_pinecone_api_key
-PINECONE_INDEX_NAME=your_index_name
+2.  **Add your API keys** to the `.env` file:
+    ```env
+    # Required for real text generation (Google Gemini)
+    GOOGLE_API_KEY=your_google_api_key_here
 
-# Embeddings (Ollama) - Optional (Used with Pinecone)
-OLLAMA_BASE_URL=http://localhost:11434
-```
+    # Optional: Required for long-term memory (Pinecone)
+    PINECONE_API_KEY=your_pinecone_api_key
+    PINECONE_INDEX_NAME=your_index_name
+    OLLAMA_BASE_URL=http://localhost:11434
+    ```
 
-## 🏃 Usage
+### Step 3: Generate the Content Plan
 
-The workflow is divided into two phases: **Planning** (Local) and **Generation** (Cloud/Colab).
+Now, run the agent to brainstorm and plan the content.
 
-### Phase 1: Content Planning
+1.  **Run the main script**:
+    ```bash
+    python -m app.main
+    ```
 
-Run the main application to generate the content plan. This step uses the LLM to create hooks, bodies, CTAs, and visual prompts.
+2.  **Check the output**:
+    *   The script will run the LangGraph workflow.
+    *   Look for a new file named `content_job.json` in the root folder.
+    *   This file contains the **Scripts**, **Captions**, **Hashtags**, and **Image Prompts**.
 
-```bash
-python -m app.main
-```
+### Step 4: Generate Images & Videos (Google Colab)
 
-**Output**: This will generate a `content_job.json` file in the root directory containing the structured content plan.
+Since image generation requires a GPU, we use Google Colab.
 
-### Phase 2: Media Generation
+1.  **Open the Notebook**:
+    *   Go to [Google Colab](https://colab.research.google.com/).
+    *   Upload the `colab/instagram_content_generator.ipynb` file from this repository.
 
-Use the provided Google Colab notebook to generate the actual images and videos based on the plan.
+2.  **Upload the Plan**:
+    *   In the Colab sidebar (Files icon on the left), upload the `content_job.json` file you generated in Step 3.
 
-1.  Open `colab/instagram_content_generator.ipynb` in [Google Colab](https://colab.research.google.com/).
-2.  Upload the `content_job.json` generated in Phase 1 to the Colab session.
-3.  Run all cells in the notebook.
-4.  The notebook will:
-    *   Install necessary libraries (Diffusers, MoviePy, etc.).
-    *   Load the Stable Diffusion model.
-    *   Generate images for carousels and scenes for reels.
-    *   Stitch together video clips for Reels.
-    *   Save the output to your Google Drive under `instagram_ai/{JOB_ID}`.
+3.  **Run the Generator**:
+    *   In Colab, go to **Runtime** > **Run all** (or press `Ctrl+F9`).
+    *   The notebook will:
+        1.  Install 3D/Image libraries.
+        2.  Load the Stable Diffusion model.
+        3.  Generate images for every scene in your plan.
+        4.  Stitch images into a video (for Reels).
+
+4.  **Download Results**:
+    *   Once finished, check the `instagram_ai/{JOB_ID}` folder in the Colab file browser (or your Google Drive if mounted).
+    *   Download your final **MP4 (Reels)** or **PNGs (Carousels)**.
+
+---
 
 ## 📂 Project Structure
 
