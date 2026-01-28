@@ -62,6 +62,11 @@ You need to set up your API keys. If you skip this, the app will run in "Mock Mo
     PINECONE_API_KEY=your_pinecone_api_key
     PINECONE_INDEX_NAME=your_index_name
     OLLAMA_BASE_URL=http://localhost:11434
+
+    # Optional: LangSmith Tracing
+    LANGCHAIN_TRACING_V2=true
+    LANGCHAIN_API_KEY=your_langchain_api_key_here
+    LANGCHAIN_PROJECT=instagram-ai-agent
     ```
 
 ### Step 3: Generate the Content Plan
